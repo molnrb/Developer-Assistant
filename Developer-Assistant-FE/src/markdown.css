@@ -1,0 +1,88 @@
+/* ----- LIGHT MODE -----  */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+    @apply text-xl font-semibold mb-4;
+}
+
+.markdown-content p {
+    @apply text-sm leading-relaxed mb-4;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+    @apply list-inside mb-4;
+}
+
+.markdown-content li {
+    @apply mb-2;
+}
+
+.markdown-content table {
+    @apply w-full border-collapse mt-4 mb-4;
+}
+
+.markdown-content th,
+.markdown-content td {
+    @apply border border-zinc-300 px-2 py-2;
+}
+
+.markdown-content th {
+    @apply bg-zinc-100 text-left;
+}
+
+.markdown-content td {
+    @apply text-left;
+}
+
+.markdown-content pre {
+    @apply p-2 rounded-lg overflow-x-auto;
+}
+
+.markdown-content code {
+    @apply bg-zinc-100 p-1 rounded-sm;
+}
+
+.markdown-content a {
+    @apply text-blue-500;
+}
+
+.markdown-content a:hover {
+    @apply text-blue-600;
+}
+
+.markdown-content blockquote {
+    @apply border-l-4 pl-4 italic bg-zinc-50 mb-2;
+}
+
+/* ----- DARK MODE -----  */
+.dark .markdown-content th {
+    @apply bg-zinc-700 text-left;
+}
+
+.dark .markdown-content td {
+    @apply border-zinc-600;
+}
+
+.dark .markdown-content pre {
+    @apply bg-zinc-900 text-white;
+}
+
+.dark .markdown-content code {
+    @apply bg-zinc-800 text-white;
+}
+
+.dark .markdown-content a {
+    @apply text-blue-400;
+}
+
+.dark .markdown-content a:hover {
+    @apply text-blue-300;
+}
+
+.dark .markdown-content blockquote {
+    @apply border-zinc-600 bg-zinc-800;
+}

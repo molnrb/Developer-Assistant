@@ -1,0 +1,55 @@
+
+services:
+  backend:
+    build:
+      context: ./Developer-Assistant-BE
+      dockerfile: Dockerfile
+    container_name: my-backend
+    restart: unless-stopped
+    env_file:
+      - ./Developer-Assistant-BE/.env
+    environment:
+      MONGO_URI: mongodb://mongo:27017/mydb
+    depends_on:
+      - mongo
+    ports:
+      - "8000:8000"
+      - "4173:4173" 
+    networks:
+      - app-net
+    volumes:
+      - ./debug:/app/debug
+
+  frontend:
+    build:
+      context: ./Developer-Assistant-FE
+      dockerfile: Dockerfile
+    container_name: my-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: "http://backend:8000"
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    networks:
+      - app-net
+
+  mongo:
+    image: mongo:7
+    command: mongod --quiet
+    container_name: my-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./db-seed:/docker-entrypoint-initdb.d
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+volumes:
+  mongo_data:

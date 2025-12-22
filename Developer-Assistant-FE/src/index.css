@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* Set default background for the app */
+html, body {
+  background-color: #0f0f0f; /* Dark background matching the app theme */
+  color: white;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  background-color: #0f0f0f;
+}
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+      border-radius: 100vh;
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: var(--color-zinc-400);
+      border-radius: 100vh;
+    }
+  }
+
+/* ===== Minimal Transparent Scrollbar (global) ===== */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;                          /* thin */
+  scrollbar-color: color-mix(in srgb, #fff 18%, transparent) transparent;
+  /* thumb color | track color (transparent) */
+}
+
+/* WebKit/Chromium */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                        /* fully transparent */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);          /* faint thumb */
+  border: 2px solid transparent;                  /* creates the gap/inset look */
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);          /* a bit more visible on hover */
+}
+
+/* Optional: avoid layout shift when bar appears */
+.scroll-stable {
+  scrollbar-gutter: stable both-edges;
+}
+
+
+/* --- Make Sandpack fill the container --- */
+.sp-wrapper,
+.sp-layout,
+.sp-preview,
+.sp-stack,
+.sp-preview-container {
+  height: 100% !important;
+}
+
+.sp-preview-iframe {
+  height: 100% !important;   /* beats the inline 274px */
+  width: 100% !important;
+  display: block;
+}
