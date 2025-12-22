@@ -37,6 +37,7 @@ services:
 
   mongo:
     image: mongo:7
+    command: mongod --quiet
     container_name: my-mongo
     restart: unless-stopped
     ports:
