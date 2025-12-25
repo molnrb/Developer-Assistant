@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import useAuthStore from "./state/useAuthStore";
-import { useRunStore } from "./state/runStore";
 
 type Props = {
   runId: string;
@@ -13,9 +12,6 @@ export function ProjectPreview({ runId }: Props) {
   const [isReloading, setIsReloading] = useState(false);
 
   const token = useAuthStore((state) => state.token);
-  const runDoneStep = useRunStore((state: any) => state.steps.done);
-  const runType = useRunStore((state: any) => state.runType);
-  const isRunning = useRunStore((state) => state.running);
   const lastRunIdRef = useRef<string | null>(null);
 
   const handleReload = useCallback(() => {
@@ -75,34 +71,6 @@ export function ProjectPreview({ runId }: Props) {
       .finally(() => setLoading(false));
   }, [runId, token, url]);
 
-  useEffect(() => {
-    if (runDoneStep === "done" && runType === "modify" && isRunning === true) {
-
-      lastRunIdRef.current = runId;
-      setLoading(true);
-      setError(null);
-
-      fetch(`http://localhost:8000/preview/${runId}/reload`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then(async (res) => {
-          if (!res.ok) {
-            const data = await res.json().catch(() => ({}));
-            throw new Error(data.detail || `HTTP ${res.status}`);
-          }
-          return res.json();
-        })
-        .then((data: { url: string; port: number }) => {
-          setUrl(data.url);
-        })
-        .catch((err) => setError(err.message))
-        .finally(() => setLoading(false));
-      }
-      handleReload();
-  }, [runDoneStep, runType, handleReload, isRunning, runId, token]);
 
   if (loading) {
     return (
